@@ -1,4 +1,58 @@
+/* =========================
+   CSS VARIABLES
+   ========================= */
 
+:root {
+    --primary: #6b4bb8;
+    --primary-dark: #50358f;
+    --text: #172033;
+    --text-light: #555b6e;
+    --background: #f6f5fb;
+    --surface: #ffffff;
+    --border: #dedce8;
+    --header: #172033;
+    --focus: #d8c8ff;
+
+    --max-width: 1100px;
+
+    --space-xs: 0.5rem;
+    --space-sm: 0.8rem;
+    --space-md: 1.2rem;
+    --space-lg: 2rem;
+    --space-xl: 4rem;
+    --space-xxl: 5rem;
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    --shadow: 0 4px 15px rgba(23, 32, 51, 0.06);
+    --shadow-hover: 0 8px 25px rgba(23, 32, 51, 0.1);
+}
+
+
+/* =========================
+   DARK MODE
+   ========================= */
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+        --text: #f1eff8;
+        --text-light: #c4bfd2;
+        --background: #111522;
+        --surface: #1c2130;
+        --border: #343b50;
+        --header: #0b0f1a;
+        --focus: #cbb8ff;
+    }
+
+}
+
+
+/* =========================
+   GLOBAL STYLES
+   ========================= */
 
 * {
     box-sizing: border-box;
@@ -10,73 +64,112 @@ html {
 
 body {
     margin: 0;
+
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: #172033;
-    background-color: #f6f5fb;
+
+    color: var(--text);
+    background-color: var(--background);
+
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease;
 }
 
 
-
+/* =========================
+   HEADER & NAVIGATION
+   FLEXBOX
+   ========================= */
 
 header {
-    background-color: #172033;
-    border-bottom: 1px solid #303a52;
+    background-color: var(--header);
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 nav {
-    max-width: 1100px;
+    max-width: var(--max-width);
     margin: 0 auto;
-    padding: 1.2rem 5%;
+    padding: var(--space-md) 5%;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem;
+
+    gap: var(--space-lg);
 }
 
 nav > a {
     color: #ffffff;
+
     font-size: 1.4rem;
     font-weight: bold;
+
     text-decoration: none;
 }
 
 nav ul {
     display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
     gap: 1.8rem;
+
     list-style: none;
+
     margin: 0;
     padding: 0;
 }
 
-nav a {
+nav ul a {
     color: #ffffff;
+
     text-decoration: none;
+
+    transition: color 0.2s ease;
 }
 
 nav ul a:hover {
     color: #d8c8ff;
-    text-decoration: none;
 }
 
 
 /* =========================
    MAIN
+   CSS GRID
    ========================= */
 
 main {
-    max-width: 1100px;
+    max-width: var(--max-width);
     margin: 0 auto;
-    padding: 2rem 5%;
+    padding: var(--space-lg) 5%;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-lg);
 }
+
+
+/* Make sections span the complete grid */
 
 section {
-    padding: 5rem 0;
-    border-bottom: 1px solid #dedce8;
+    grid-column: 1 / -1;
+
+    padding: var(--space-xxl) 0;
+
+    border-bottom: 1px solid var(--border);
 }
 
 
+/* =========================
+   HERO SECTION
+   FLEXBOX
+   ========================= */
 
 section:first-child {
     min-height: 70vh;
@@ -84,65 +177,94 @@ section:first-child {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
 }
 
 section:first-child p:first-child {
-    color: #6b4bb8;
+    color: var(--primary);
+
     font-weight: bold;
     font-size: 1.05rem;
+
     letter-spacing: 0.5px;
 }
 
+
+/* =========================
+   TYPOGRAPHY
+   ========================= */
+
 h1 {
     max-width: 800px;
+
     margin: 0 0 1.2rem;
 
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 6vw, 4rem);
     line-height: 1.1;
-    color: #172033;
+
+    color: var(--text);
 }
 
 h2 {
-    font-size: 2.2rem;
-    color: #172033;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+
+    color: var(--text);
+
     margin-bottom: 1.2rem;
 }
 
 h3 {
     font-size: 1.4rem;
-    color: #172033;
+
+    color: var(--text);
 }
 
 p {
     max-width: 700px;
+
+    color: var(--text-light);
 }
 
 
-
+/* =========================
+   BUTTONS
+   FLEXBOX
+   ========================= */
 
 section > a,
 article > a {
-    display: inline-block;
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
 
     margin: 1rem 1rem 0 0;
     padding: 0.8rem 1.3rem;
 
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 
-    background-color: #6b4bb8;
+    background-color: var(--primary);
     color: #ffffff;
 
     text-decoration: none;
     font-weight: bold;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 section > a:hover,
 article > a:hover {
-    background-color: #50358f;
+    background-color: var(--primary-dark);
+
+    transform: translateY(-2px);
 }
 
 
-
+/* =========================
+   LISTS
+   ========================= */
 
 section ul {
     padding-left: 1.5rem;
@@ -153,55 +275,65 @@ section li {
 }
 
 
+/* =========================
+   PROJECT CARDS
+   CSS GRID
+   ========================= */
 
+section:has(article) {
+    display: grid;
+
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+    );
+
+    gap: var(--space-lg);
+}
+
+
+/* Keep section heading/text full width */
+
+section:has(article) > h2,
+section:has(article) > p {
+    grid-column: 1 / -1;
+}
+
+
+/* Individual cards */
 
 article {
-    background-color: #ffffff;
+    background-color: var(--surface);
 
-    padding: 2rem;
-    margin: 1.5rem 0;
+    padding: var(--space-lg);
 
-    border: 1px solid #dedce8;
-    border-radius: 12px;
+    margin: 0;
 
-    box-shadow: 0 4px 15px rgba(23, 32, 51, 0.06);
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-lg);
+
+    box-shadow: var(--shadow);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.3s ease;
 }
 
 article:hover {
-    box-shadow: 0 8px 25px rgba(23, 32, 51, 0.1);
+    transform: translateY(-4px);
+
+    box-shadow: var(--shadow-hover);
 }
 
 
-
-
-footer {
-    padding: 2rem 5%;
-
-    text-align: center;
-
-    background-color: #172033;
-    color: #ffffff;
-}
-
-footer p {
-    margin: 0 auto;
-}
-
-
-
-
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-    outline: 3px solid #d8c8ff;
-    outline-offset: 3px;
-}
-
-
-
+/* =========================
+   CONTACT FORM
+   ========================= */
 
 form {
+    width: 100%;
     max-width: 700px;
 }
 
@@ -211,63 +343,182 @@ form div {
 
 label {
     display: block;
+
     margin-bottom: 0.4rem;
+
     font-weight: bold;
 }
 
 input,
 textarea {
     width: 100%;
+
     padding: 0.8rem;
 
     font: inherit;
 
-    border: 1px solid #aaa6b8;
-    border-radius: 6px;
+    color: var(--text);
+    background-color: var(--surface);
 
-    background-color: #ffffff;
+    border: 1px solid #aaa6b8;
+
+    border-radius: var(--radius-sm);
 }
 
 textarea {
     resize: vertical;
+    min-height: 140px;
 }
 
+input:focus,
+textarea:focus {
+    border-color: var(--primary);
+}
+
+
+/* =========================
+   FORM BUTTON
+   ========================= */
+
 button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
     padding: 0.8rem 1.4rem;
 
     border: none;
-    border-radius: 8px;
 
-    background-color: #6b4bb8;
+    border-radius: var(--radius-md);
+
+    background-color: var(--primary);
     color: #ffffff;
 
     font: inherit;
     font-weight: bold;
+
     cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 button:hover {
-    background-color: #50358f;
+    background-color: var(--primary-dark);
+
+    transform: translateY(-2px);
 }
 
 
+/* =========================
+   ACCESSIBILITY
+   ========================= */
 
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--focus);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    padding: var(--space-lg) 5%;
+
+    text-align: center;
+
+    background-color: var(--header);
+    color: #ffffff;
+}
+
+footer p {
+    margin: 0 auto;
+
+    color: #ffffff;
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 900px) {
+
+    main {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    section {
+        grid-column: 1 / -1;
+    }
+
+    nav {
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
 
 @media (max-width: 700px) {
 
     nav {
         flex-direction: column;
+
         align-items: flex-start;
+
+        gap: 1rem;
     }
 
     nav ul {
+        width: 100%;
+
         flex-direction: column;
+
+        align-items: flex-start;
+
         gap: 0.7rem;
+    }
+
+    main {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        padding: 1.5rem 5%;
+    }
+
+    section {
+        grid-column: 1;
+
+        padding: 4rem 0;
     }
 
     section:first-child {
         min-height: auto;
+
         padding: 4rem 0;
+    }
+
+    section:has(article) {
+        grid-template-columns: 1fr;
+    }
+
+    section:has(article) > h2,
+    section:has(article) > p {
+        grid-column: 1;
     }
 
     h1 {
@@ -278,8 +529,62 @@ button:hover {
         font-size: 1.8rem;
     }
 
+    article {
+        padding: 1.5rem;
+    }
+
+    section > a,
+    article > a {
+        width: 100%;
+
+        margin-right: 0;
+    }
+
+}
+
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 400px) {
+
+    nav > a {
+        font-size: 1.2rem;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+    }
+
     main {
-        padding: 1.5rem 5%;
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+   ACCESSIBILITY
+   ========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
     }
 
 }
